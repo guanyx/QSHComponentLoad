@@ -7,4 +7,13 @@ gulp.task('compress', function() {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('svn', function(){
+    ['src', 'dist', 'test'].forEach(function(name){
+        gulp.src(name+"/*")
+            .pipe(gulp.dest('mLoad/'+name));
+    });
+    return gulp.src(['.gitignore', 'gulpfile.js', 'package.json', 'ReadMe.md'])
+        .pipe(gulp.dest('mLoad'));
+});
+
 gulp.task('default', ['compress']);
