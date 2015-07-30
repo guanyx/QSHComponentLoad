@@ -80,6 +80,39 @@ var QSHComponentLoad = require('../src/mLoad.js');
 .....
 ```
 
+####使用场景模拟
+以手机首页的热卖商品为例
+热卖商品作为一个组件
+包含了一个热卖商品列表的样式文件。remai.css
+包含了一个热卖商品结构HTML。remai.html
+包含了一个热卖商品item的template。remai.item.html
+包含了热卖商品的交互脚本。remai.js
+
+如果要把组件的功能独立，需要把这些内容一次性加载进来
+而这个加载组件就是为了完成这样的简单功能
+先加载css与html。再加载js
+加载完成后，可以通过Promise或者回调通知调用者组件就绪
+
+获取热卖商品内容这部分的逻辑，应该是在remai.js中完成
+
+```js
+QSHComponentLoad({
+    js: ['remai.js'],
+    css: ['remai.css'],
+    html: ['remai.html', {url: 'remai.item.html', insert: false}]
+}, 'body')
+        .done(function(htmls){
+            remai.fetchData();
+            remai.Render(htmls[1])
+            //hideLoading //隐藏加载中图片
+            ....
+        })
+        .fail(function(){
+            alert('fail');
+        })
+```
+
+
 ####附加
 <p>写的有些草率，功能也比较单一。如果在使用中有什么问题，或者需要新增哪些特性，请直接在群里面@我修改</p>
 <p>seajs以及commonJs调用方式未经过测试</p>
