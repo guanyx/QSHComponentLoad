@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Expires" CONTENT="0">
+    <title>Page</title>
+</head>
+<body>
+<button id="load">加载内容</button>
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="../src/mLoad.js"></script>
+<script>
+    $("#load").click(function(){
+        QSHComponentLoad({
+            js: ['snippet.js'],
+            css: ['snippet.css'],
+            html: ['snippet.html']
+        }, 'body')
+                .done(function(htmls){
+                    console.log(htmls)
+                })
+                .fail(function(){
+                    alert('fail');
+                })
+    })
+
+</script>
+</body>
+</html>
